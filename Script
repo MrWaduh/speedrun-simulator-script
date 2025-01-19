@@ -1,0 +1,102 @@
+local OrionLib = loadstring(game:HttpGet(('https://pastebin.com/raw/WRUyYTdY')))()
+
+local Window = OrionLib:MakeWindow({Name = "Op speedrun simulator script", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+
+local Tab = Window:MakeTab({
+	Name = "Main",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+
+local Section = Tab:AddSection({
+	Name = "Main"
+})
+
+
+Tab:AddToggle({
+	Name = "Free auto rebirth",
+	Default = false,
+	Callback = function(Value)
+		Rebirth= Value
+    while Rebirth do task.wait()
+    game:GetService("ReplicatedStorage").Remotes.Rebirth:FireServer()
+end
+	end    
+})
+
+Tab:AddToggle({
+	Name = "Auto tp to orbs",
+	Default = false,
+	Callback = function(Value)
+		orbs = Value
+    while orbs do task.wait(0.2)
+    local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
+
+local orbs = workspace.GameAssets.GlobalAssets.OrbSpawns
+for i, v in pairs(workspace.GameAssets.GlobalAssets.OrbSpawns:GetChildren()) do
+if v:IsA("MeshPart") then
+ rootPart.CFrame = v.CFrame
+end
+end
+end
+	end    
+})
+
+Tab:AddToggle({
+	Name = "Auto speed",
+	Default = false,
+	Callback = function(Value)
+		speed = Value
+    while speed do task.wait()
+    game:GetService("ReplicatedStorage").Remotes.AddSpeed:FireServer()
+
+end
+	end    
+})
+
+Tab:AddButton({
+	Name = "Tp to race finish line",
+	Callback = function()
+         local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
+         rootPart.CFrame = workspace.GameAssets.Races.Grassy.Course.Finish.RaceEnd.CFrame
+  	end    
+})
+
+Tab:AddButton({
+	Name = "Get free pets (can duped)",
+	Callback = function()
+         local args = {
+    [1] = "Silly Icecream",
+    [2] = false
+}
+
+game:GetService("ReplicatedStorage").Remotes.CanBuyEgg:InvokeServer(unpack(args))
+
+local args = {
+    [1] = "Earth Butterfly",
+    [2] = false
+}
+
+game:GetService("ReplicatedStorage").Remotes.CanBuyEgg:InvokeServer(unpack(args))
+
+local args = {
+    [1] = "Summer Sheep",
+    [2] = false
+}
+
+game:GetService("ReplicatedStorage").Remotes.CanBuyEgg:InvokeServer(unpack(args))
+
+local args = {
+    [1] = "Big Friendly Bumblebee",
+    [2] = false
+}
+
+game:GetService("ReplicatedStorage").Remotes.CanBuyEgg:InvokeServer(unpack(args))
+
+  	end    
+})
+
+
+
+OrionLib:Init()
